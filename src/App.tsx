@@ -2,6 +2,7 @@ import "./App.css";
 import ToolBar from "./components/ToolBar/ToolBar.tsx";
 import { Route, Routes } from "react-router-dom";
 import ContentPage from "./containers/ContentPage/ContentPage.tsx";
+import EditPage from './containers/EditPage/EditPage.tsx';
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
           <Route path="/" element={<ContentPage />} />
           <Route path="/pages" element={<ContentPage />} />
           <Route path={`/pages/:pageName`} element={<ContentPage />} />
+          <Route path={`/pages/admin`} element={<EditPage />} />
           <Route
             path="*"
             element={<h1 className="text-center mt-5">Not found</h1>}
