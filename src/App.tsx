@@ -2,7 +2,7 @@ import "./App.css";
 import ToolBar from "./components/ToolBar/ToolBar.tsx";
 import { Route, Routes } from "react-router-dom";
 import ContentPage from "./containers/ContentPage/ContentPage.tsx";
-import EditPage from './containers/EditPage/EditPage.tsx';
+import EditPage from "./containers/EditPage/EditPage.tsx";
 
 function App() {
   return (
