@@ -15,7 +15,6 @@ const EditPage = () => {
   const onChangeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectPage(e.target.value);
   };
-  console.log(selectPage);
 
   const fetchData = useCallback(async () => {
     try {
@@ -57,14 +56,13 @@ const EditPage = () => {
       };
     });
   };
-  console.log(page);
 
   const submitForm = async (e: React.FormEvent) => {
     e.preventDefault();
     try {
       setLoading(true);
       await axiosAPI.put("pages/" + selectPage + ".json", { ...page });
-      navigate("/pages");
+      navigate("/pages/" + selectPage);
     } catch (e) {
       console.error(e);
     } finally {
@@ -81,7 +79,7 @@ const EditPage = () => {
           <h2 className="text-center mt-3">Edit pages</h2>
 
           <div className="form-add-new-post p-5 border border-black-200 rounded-3 fs-4 mt-4 text-start">
-            <form>
+            <form onSubmit={submitForm}>
               <div className="form-group mb-3">
                 <label htmlFor="category" className="form-label fs-4">
                   {" "}
@@ -90,7 +88,6 @@ const EditPage = () => {
 
                 <select
                   required
-                  onSubmit={submitForm}
                   id="category"
                   value={selectPage}
                   onChange={onChangeSelect}
@@ -101,6 +98,7 @@ const EditPage = () => {
                   <option className="fs-5" value="" disabled>
                     Select a category
                   </option>
+                  <option value="home">home</option>
                   <option value="about">about</option>
                   <option value="contacts">contacts</option>
                   <option value="education">education</option>
@@ -128,6 +126,7 @@ const EditPage = () => {
                 <label htmlFor="content" className="form-label d-block">
                   Content:
                 </label>
+
                 <textarea
                   className="text-area mt-2 border border-black-200 rounded-3 w-100 text-field p-3"
                   id="content"

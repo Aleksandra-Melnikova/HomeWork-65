@@ -6,7 +6,7 @@ const ToolBar = () => {
     <>
       <nav className="navbar navbar-expand-lg bg-dark p-4">
         <div className="container px-4">
-          <NavLink className="name title" to="/">
+          <NavLink className="name title" to="/pages/home">
             <span className=" navbar-brand mb-0 text-white fs-2 ">
               Static Pages
             </span>
@@ -14,7 +14,7 @@ const ToolBar = () => {
           <div className="ms-auto">
             <ul className="navbar-nav">
               <li className="nav-item">
-                <NavLink className="nav-link fs-4" to="/pages">
+                <NavLink className="nav-link fs-4" to="/pages/home">
                   Home
                 </NavLink>
               </li>

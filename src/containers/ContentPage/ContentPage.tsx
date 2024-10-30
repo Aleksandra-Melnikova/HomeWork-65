@@ -12,11 +12,11 @@ const ContentPage = () => {
   const params = useParams();
 
   const [loading, setLoading] = useState<boolean>(false);
-  const fetchData = useCallback(async () => {
+  const fetchData = useCallback(async (pageName: string) => {
     try {
       setLoading(true);
       const response: { data: IPage } = await axiosAPI<IPage>(
-        "pages/" + params.pageName + ".json",
+        "pages/" + pageName + ".json",
       );
 
       if (response.data) {
@@ -31,11 +31,15 @@ const ContentPage = () => {
     } finally {
       setLoading(false);
     }
-  }, [params.pageName]);
+  }, []);
 
   useEffect(() => {
-    void fetchData();
-  }, [fetchData]);
+    if (params.pageName === undefined) {
+      void fetchData("home");
+    } else {
+      void fetchData(params.pageName);
+    }
+  }, [fetchData, params.pageName]);
 
   return (
     <>
@@ -43,16 +47,12 @@ const ContentPage = () => {
         <Spinner />
       ) : (
         <>
-          {params.pageName ? (
+          <div>
             <div>
-              <div>
-                <h1>{page.title}</h1>
-                <div>{page.content}</div>
-              </div>
+              <h1 className="my-5">{page.title}</h1>
+              <div>{page.content}</div>
             </div>
-          ) : (
-            <p>This home page</p>
-          )}
+          </div>
         </>
       )}
     </>
