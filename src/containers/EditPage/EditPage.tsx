@@ -10,10 +10,7 @@ const EditPage = () => {
   const [valueFromQuill, setValueFromQuill] = useState("");
   const [selectPage, setSelectPage] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [page, setPage] = useState<IPage>({
-    title: "",
-    content: "",
-  });
+  const [title, setTitle] = useState<string>('');
   const navigate = useNavigate();
   const onChangeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectPage(e.target.value);
@@ -32,7 +29,7 @@ const EditPage = () => {
             title: response.data.title,
             content: response.data.content,
           };
-          setPage(obj);
+          setTitle(obj.title);
           setValueFromQuill(obj.content);
         }
       }
@@ -49,16 +46,10 @@ const EditPage = () => {
 
   const onChangeField = (
     e: React.ChangeEvent<
-      HTMLInputElement | HTMLSelectElement
+      HTMLInputElement
     >,
   ) => {
-    const { name, value } = e.target;
-    setPage((prevState) => {
-      return {
-        ...prevState,
-        [name]: value,
-      };
-    });
+    setTitle(e.target.value);
   };
 
   const submitForm = async (e: React.FormEvent) => {
@@ -66,7 +57,7 @@ const EditPage = () => {
     try {
       setLoading(true);
       const pageObj = {
-        title: page.title,
+        title: title,
         content: valueFromQuill,
       };
       await axiosAPI.put("pages/" + selectPage + ".json", { ...pageObj });
@@ -125,7 +116,7 @@ const EditPage = () => {
                   id="title"
                   name="title"
                   type="text"
-                  value={page.title}
+                  value={title}
                   onChange={onChangeField}
                   required
                 />
