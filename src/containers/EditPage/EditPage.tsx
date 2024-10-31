@@ -49,7 +49,7 @@ const EditPage = () => {
 
   const onChangeField = (
     e: React.ChangeEvent<
-      HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement
+      HTMLInputElement | HTMLSelectElement
     >,
   ) => {
     const { name, value } = e.target;
