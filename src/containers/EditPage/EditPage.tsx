@@ -3,8 +3,11 @@ import { IPage } from "../../types";
 import axiosAPI from "../../axiosAPI.ts";
 import { useNavigate } from "react-router-dom";
 import Spinner from "../../components/UI/Spinner/Spinner.tsx";
+import "react-quill/dist/quill.snow.css";
+import ReactQuill from "react-quill-new";
 
 const EditPage = () => {
+  const [valueFromQuill, setValueFromQuill] = useState("");
   const [selectPage, setSelectPage] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
   const [page, setPage] = useState<IPage>({
@@ -30,6 +33,7 @@ const EditPage = () => {
             content: response.data.content,
           };
           setPage(obj);
+          setValueFromQuill(obj.content);
         }
       }
     } catch (err) {
@@ -61,7 +65,11 @@ const EditPage = () => {
     e.preventDefault();
     try {
       setLoading(true);
-      await axiosAPI.put("pages/" + selectPage + ".json", { ...page });
+      const pageObj = {
+        title: page.title,
+        content: valueFromQuill,
+      };
+      await axiosAPI.put("pages/" + selectPage + ".json", { ...pageObj });
       navigate("/pages/" + selectPage);
     } catch (e) {
       console.error(e);
@@ -126,14 +134,10 @@ const EditPage = () => {
                 <label htmlFor="content" className="form-label d-block">
                   Content:
                 </label>
-
-                <textarea
-                  className="text-area mt-2 border border-black-200 rounded-3 w-100 text-field p-3"
-                  id="content"
-                  name="content"
-                  value={page.content}
-                  onChange={onChangeField}
-                  required
+                <ReactQuill
+                  theme="snow"
+                  value={valueFromQuill}
+                  onChange={(value) => setValueFromQuill(value)}
                 />
               </div>
               <button className="ps-4 pe-4 btn btn-info" type="submit">

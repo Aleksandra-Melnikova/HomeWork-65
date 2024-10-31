@@ -50,7 +50,7 @@ const ContentPage = () => {
           <div>
             <div>
               <h1 className="my-5">{page.title}</h1>
-              <div>{page.content}</div>
+              <div dangerouslySetInnerHTML={{ __html: page.content }} />
             </div>
           </div>
         </>
