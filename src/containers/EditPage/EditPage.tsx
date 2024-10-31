@@ -10,7 +10,7 @@ const EditPage = () => {
   const [valueFromQuill, setValueFromQuill] = useState("");
   const [selectPage, setSelectPage] = useState<string>("");
   const [loading, setLoading] = useState<boolean>(false);
-  const [title, setTitle] = useState<string>('');
+  const [title, setTitle] = useState<string>("");
   const navigate = useNavigate();
   const onChangeSelect = (e: React.ChangeEvent<HTMLSelectElement>) => {
     setSelectPage(e.target.value);
@@ -44,11 +44,7 @@ const EditPage = () => {
     void fetchData();
   }, [fetchData]);
 
-  const onChangeField = (
-    e: React.ChangeEvent<
-      HTMLInputElement
-    >,
-  ) => {
+  const onChangeField = (e: React.ChangeEvent<HTMLInputElement>) => {
     setTitle(e.target.value);
   };
 
